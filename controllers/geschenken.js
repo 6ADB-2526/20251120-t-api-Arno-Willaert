@@ -14,8 +14,9 @@
 const { sinterklaasGeschenken: geschenken } = require("../databank/data");
 
 const lijstGeschenken = (req, res) => {
+  geschenken.forEach(element => {
+  })
   
-  res.json(geschenken);
 };
 
 const geschenkInfo = (req, res) => {

@@ -15,20 +15,56 @@ const kinderen = require("../databank/data")
 
 //connecteer de datagegevens aan de controller
 const infoAll = (req, res) => {
-    res.json(kinderen)
+    res.json(kinderen.kindjes)
 }
 
 const getOne = (req, res) => {
-    res.json(kinderen.filter((kind) => kind.id == req.params.ID))
+    res.json(kinderen.kindjes.filter((kind) => kind.id == req.params.ID))
 }
 
 const addOne = (req, res) => {
-
+   const id = getMaxId() +1
+   const voornaam = req.body.voornaam
+   const achternaam = req.body.achternaam
+   const geschenkId = req.body.geschenkId
+   kinderen.kindjes.push({id:id, voornaam:voornaam, achternaam:achternaam, geschenkId:geschenkId })
+   res.json({resultaat: "ok"})
 }
+const getMaxId = () => {
+  let maxId = 0
+  kinderen.kindjes.forEach(kind => {
+    if(maxId < kind.id) maxId = kind.id
+  })
+  return maxId
+}
+
+const addGift = (req, res) => {
+    const voornaam = req.body.voornaam
+    const geschenkId = req.body.geschenkId
+    const kind = kinderen.kindjes.find((kind) => kind.voornaam == voornaam)
+    kind.geschenkId = geschenkId
+    kinderen.kindjes.push(kind)
+    res.json({resultaat : "cadeau toegevoegt"})
+}
+
+const deleteOnePost = (req, res) => {
+  // logica
+  const voornaamToDelete = req.body.voornaamToDelete
+    const indexToDelete = kinderen.kindjes.indexOf(
+        kinderen.kindjes.find((kind) => kind.id == voornaamToDelete)
+    )
+    kinderen.kindjes.splice(indexToDelete,voornaamToDelete)
+    // res.json({resultaat: "ok", data: leerlingen})
+  res.json({resultaat: "ok"})
+}
+
 
 // exporteren van code
 
 module.exports = {
     infoAll,
-    getOne
+    getOne,
+    addOne,
+    addGift,
+    deleteOnePost
 }

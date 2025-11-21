@@ -6,8 +6,11 @@ const crlKind = require("../controllers/kinderen")
 const routes = express.Router()
 
 // maak de verschillende routs aan
-routes.get("/getAll", crlKind.infoAll)
-routes.get("/getOne/:ID", crlKind.getOne)
+routes.get("/", crlKind.infoAll)
+routes.get("/:ID", crlKind.getOne)
+routes.put("/addOne", crlKind.addOne)
+routes.put("/addGift", crlKind.addGift)
+routes.post("/verwijderopnaam", crlKind.deleteOnePost)
 
 // alles exporteren
 module.exports = routes
