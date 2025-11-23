@@ -20,12 +20,14 @@ const lijstGeschenken = (req, res) => {
 };
 
 const geschenkInfo = (req, res) => {
+  // 2 x een res sturen kan niet! 
   res.json(geschenken.filter((geschenk) => geschenk.id == req.params.ID))
   res.json({ status: "gelukt" });
 };
 
 const geschenkToevoegen = (req, res) => {
   const newGeschenk = {
+    // een id mee geven doe je best niet (gebruik hiervoor de juiste functie)
      id: req.body.id,  //15
     naam: req.body.naam,  //"KarelKleintjes-tshirt"
     categorie: req.body.categorie, //"textiel"
@@ -45,6 +47,7 @@ const geschenkWissen = (req, res) => {
   res.json({ resultaat: "gelukt" });
 };
 
+// kon je dus makkelijk gebruiken 
 const newID = (lijstMetID) => {
   lijstMetID.forEach((item) => {
     maxID = 0;
